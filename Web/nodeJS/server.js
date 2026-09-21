@@ -12,6 +12,8 @@ app.use('/JS', express.static(path.join(__dirname, '../JS')));
 // Optional: Serve icons/images if needed
 app.use('/ico', express.static(path.join(__dirname, '../ico')));
 
+app.use('/CSS', express.static(path.join(__dirname,'../CSS')));
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });

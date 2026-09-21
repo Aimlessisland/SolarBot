@@ -1,48 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Device</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-    </style>
+    <title>Device</title>
+    <link rel="stylesheet" href="CSS/addDevice.css">  
+    <script src="/JS/menu.js"></script> 
+    <script src="/JS/script.js"></script> 
 </head>
-<body class="flex justify-center items-center min-h-screen bg-neutral-950 p-0 sm:p-4">
-
-    <div class="w-full max-w-sm h-screen sm:h-[860px] bg-black sm:rounded-[40px] sm:border-[8px] sm:border-neutral-800 flex flex-col justify-between p-5 relative overflow-hidden shadow-2xl">
-
-        <div class="flex flex-col">
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center space-x-3">
-                    <img id="robot-icon" src="https://placehold.co/36x36/f97316/ffffff?text=🤖" alt="Robot Icon" class="w-9 h-9 rounded-lg object-cover">
-                    <div class="flex items-center space-x-2">
-                        <div class="w-1.5 h-6 bg-orange-500 rounded-full"></div>
-                        <h1 class="text-xl font-bold tracking-tight text-white">Device</h1>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-full bg-[#d9d9d9] hover:bg-[#c8c8c8] text-neutral-900 rounded-2xl h-36 flex flex-col items-center justify-center cursor-pointer shadow-lg transition-transform active:scale-95">
-                <i class="fa-solid fa-plus text-3xl mb-2 text-neutral-800"></i>
-                <span class="font-bold text-base tracking-wide text-neutral-800">Add Device</span>
-            </div>
-        </div>
-
-        <div class="flex flex-col space-y-4 pb-4 relative h-20">
-            <button class="absolute bottom-4 right-0 w-14 h-14 bg-[#7a7a7a] hover:bg-[#888888] text-white rounded-full flex items-center justify-center text-xl shadow-lg transition-transform active:scale-95" aria-label="Add">
-                <i class="fa-solid fa-plus"></i>
-            </button>
-        </div>
-
+<body>
+    <div class="header-container">
+        <img src="/ico/mainOrange.png" alt="Orange Icon" class="header-icon">
+        <div class="orange-bar"></div>
+        <span class="title">Device</span>
     </div>
 
+    <div class="device-list">
+        <!-- Existing Device Card -->
+        <a href="deviceDetail.html" class="device-card orange-card" style="text-decoration: none; color: inherit;">
+            <img src="/ico/solarBot.png" alt="Device" class="device-img">
+            <div class="device-info">
+                <span class="device-number">1st Device</span>
+                <span class="device-name">Solar MD 001</span>
+            </div>
+        </a>
+
+        <!-- Add Device Card -->
+        <div class="device-card add-card">
+            <div class="add-icon">+</div>
+            <span class="add-text">Add Device</span>
+        </div>
+    </div>
+
+    <button id="menuButton" class="menu-fab">
+        +
+    </button>
 </body>
 </html>

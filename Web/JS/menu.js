@@ -1,47 +1,73 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const menuBtn = document.getElementById("menuButton");
-    const slideMenu = document.getElementById("slideMenu");
+document.addEventListener('DOMContentLoaded', () => {
+    const menuButton = document.getElementById('menuButton');
 
-    const currentPath = window.location.pathname.split("/").pop();
+    if (!menuButton) return;
 
-    const homeBtn = document.getElementById("homeBtn");
-    const detailBtn = document.getElementById("detailBtn");
-    const controlBtn = document.getElementById("controlBtn");
+    menuButton.addEventListener('click', () => {
+        const existingBtn1 = document.getElementById('subButton1');
 
-    if (homeBtn && detailBtn && controlBtn) {
-        // Clear previous color states
-        homeBtn.classList.remove("bg-gray-600", "bg-orange-600", "hover:bg-orange-500");
-        detailBtn.classList.remove("bg-gray-600", "bg-orange-600", "hover:bg-orange-500");
-        controlBtn.classList.remove("bg-gray-600", "bg-orange-600", "hover:bg-orange-500");
+        if (existingBtn1) {
+            const subBtns = [
+                document.getElementById('subButton1'),
+                document.getElementById('subButton2'),
+                document.getElementById('subButton3')
+            ];
 
-        // Current page is orange, others are grey
-        if (currentPath === "addDevice.html") {
-            homeBtn.classList.add("bg-orange-600", "hover:bg-orange-500"); // Current
-            detailBtn.classList.add("bg-gray-600");                         // Others
-            controlBtn.classList.add("bg-gray-600");                         // Others
-        } else if (currentPath === "deviceDetail.html") {
-            detailBtn.classList.add("bg-orange-600", "hover:bg-orange-500"); // Current
-            homeBtn.classList.add("bg-gray-600");                            // Others
-            controlBtn.classList.add("bg-gray-600");                         // Others
-        } else {
-            // Default/Control Page
-            controlBtn.classList.add("bg-orange-600", "hover:bg-orange-500");// Current
-            homeBtn.classList.add("bg-gray-600");                            // Others
-            detailBtn.classList.add("bg-gray-600");                         // Others
+            subBtns.forEach((btn) => {
+                if (btn) {
+                    btn.style.right = '24px';
+                    btn.style.opacity = '0';
+                    setTimeout(() => btn.remove(), 400);
+                }
+            });
+            return;
         }
-    }
 
-    // Handle sliding menu animation
-    if (menuBtn && slideMenu) {
-        menuBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (slideMenu.style.maxWidth && slideMenu.style.maxWidth !== "0px") {
-                slideMenu.style.maxWidth = "0px";
-                slideMenu.style.opacity = "0";
-            } else {
-                slideMenu.style.maxWidth = "280px";
-                slideMenu.style.opacity = "1";
-            }
+        const targets = ['120px', '216px', '312px'];
+        const labels = ['Device', 'Control', 'Detail'];
+
+        targets.forEach((targetRight, index) => {
+            const subBtn = document.createElement('button');
+            const label = labels[index];
+            
+            subBtn.id = `subButton${index + 1}`;
+            subBtn.textContent = label;
+            subBtn.className = menuButton.className;
+            
+            // 1. Check if this button corresponds to the current page
+            const isCurrentPage = (label === 'Detail' && window.location.pathname.includes('deviceDetail.html')) ||
+                                  (label === 'Control' && window.location.pathname.includes('controllerPage.html')) ||
+                                  (label === 'Device' && window.location.pathname.includes('addDevice.html'));
+
+            subBtn.style.position = 'fixed';
+            subBtn.style.bottom = '24px';
+            subBtn.style.right = '24px';
+            subBtn.style.zIndex = '9998';
+            subBtn.style.opacity = '0';
+            
+            // 2. Set orange if active, grey if inactive
+            subBtn.style.backgroundColor = isCurrentPage ? '#ea580c' : '#aaa7a7';
+            
+            subBtn.style.transition = 'right 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease';
+
+            // 3. Add navigation action on click
+            subBtn.onclick = () => {
+                if (label === 'Detail') {
+                    window.location.href = 'deviceDetail.html';
+                } else if (label === 'Control') {
+                    window.location.href = 'controllerPage.html';
+                } else if (label === 'Device') {
+                    window.location.href = 'addDevice.html';
+                }
+            };
+
+            document.body.appendChild(subBtn);
+            subBtn.offsetHeight;
+
+            setTimeout(() => {
+                subBtn.style.right = targetRight;
+                subBtn.style.opacity = '1';
+            }, index * 450);
         });
-    }
+    });
 });

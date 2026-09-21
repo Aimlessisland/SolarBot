@@ -1,137 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar MD 001 Control</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .control-btn {
-            background-color: #333333;
-            color: #ffffff;
-            transition: all 0.1s ease;
-        }
-        .control-btn:active {
-            transform: scale(0.95);
-            background-color: #4a4a4a;
-        }
-    </style>
+    <title>Controller</title>
+    <link rel="stylesheet" href="CSS/controllerPage.css">  
+    <script src="/JS/menu.js"></script> 
+    <script src="/JS/script.js"></script> 
 </head>
-<body class="flex justify-center items-center min-h-screen bg-neutral-950 p-0 sm:p-4">
-
-    <!-- Mobile Frame Wrapper -->
-    <div class="w-full max-w-sm h-screen sm:h-[860px] bg-black sm:rounded-[40px] sm:border-[8px] sm:border-neutral-800 flex flex-col justify-between p-5 relative overflow-y-auto shadow-2xl">
-
-        <!-- Top Header & Controls Section -->
-        <div class="flex flex-col">
-            <div class="flex items-center justify-between mb-1">
-                <div class="flex items-center space-x-3">
-                    <!-- Placeholder for left icon/robot image -->
-                    <img id="robot-icon" src="/ico/mainOrange.png" alt="Robot Icon" class="w-9 h-9 rounded-lg object-contain">
-                    <!-- Vertical Orange Accent Bar & Title -->
-                    <div class="flex items-center space-x-2">
-                        <div class="w-1.5 h-6 bg-orange-500 rounded-full"></div>
-                        <h1 class="text-xl font-bold tracking-tight text-white">Solar MD 001</h1>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Date and Working Status Sub-header -->
-            <div class="flex justify-between items-center text-xs text-neutral-400 mb-3 pl-12">
-                <span>Date: 22/09/2026</span>
-                <span class="text-lime-400 font-medium">Working</span>
-            </div>
-
-            <!-- Video / Camera Container -->
-            <div id="videoView" class="w-full h-44 bg-neutral-900 rounded-2xl border border-neutral-800 flex items-center justify-center relative overflow-hidden mb-3 shadow-inner">
-                <!-- Connecting status text placeholder -->
-                <span class="text-neutral-400 text-sm font-medium tracking-wider animate-pulse">connecting..........</span>
-                <!-- Camera feed image fallback -->
-                <img id="cameraFeed" src="" alt="" class="absolute inset-0 w-full h-full object-cover hidden">
-            </div>
-
-            <!-- Camera Status & Switch Bar -->
-            <div class="flex justify-between items-center mb-1">
-                <div class="flex items-center space-x-2 text-sm text-neutral-200">
-                    <i class="fa-solid fa-camera text-neutral-400"></i>
-                    <span class="font-medium">Front Cam</span>
-                </div>
-                <button onclick="switchCamera()" class="text-xs text-neutral-300 underline underline-offset-4 hover:text-orange-500 transition-colors">
-                    Switch Cam
-                </button>
-            </div>
-
-            <!-- Horizontal Orange Accent Bar -->
-            <div class="w-full h-1 bg-orange-500 rounded-full mt-2 mb-4"></div>
-
-            <!-- Control Section -->
-            <div>
-                <h2 class="text-sm font-medium text-neutral-300 mb-3">Control</h2>
-                <!-- D-Pad 4 Circular Buttons Row -->
-                <div class="grid grid-cols-4 gap-3 px-1">
-                    <button class="control-btn aspect-square rounded-full flex items-center justify-center text-xl shadow-md" aria-label="Left">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </button>
-                    <button class="control-btn aspect-square rounded-full flex items-center justify-center text-xl shadow-md" aria-label="Up">
-                        <i class="fa-solid fa-arrow-up"></i>
-                    </button>
-                    <button class="control-btn aspect-square rounded-full flex items-center justify-center text-xl shadow-md" aria-label="Down">
-                        <i class="fa-solid fa-arrow-down"></i>
-                    </button>
-                    <button class="control-btn aspect-square rounded-full flex items-center justify-center text-xl shadow-md" aria-label="Right">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Controls & Menu Area (Properly spaced to prevent overlap) -->
-        <div class="flex flex-col space-y-4 pb-4 mt-4">
-            <!-- Power and Start/Pause Row -->
-            <div class="flex items-center space-x-3 w-full">
-                <!-- Power Button -->
-                <button class="control-btn w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-md flex-shrink-0" aria-label="Power">
-                    <i class="fa-solid fa-power-off text-neutral-300"></i>
-                </button>
-                <!-- Start | Pause Wide Button -->
-                <button class="control-btn flex-1 h-14 rounded-xl font-semibold text-lg tracking-wide bg-[#7a7a7a] hover:bg-[#888888] text-white shadow-md flex items-center justify-center">
-                    Start | Pause
-                </button>
-            </div>
-
-            <div class="flex justify-end items-center space-x-3 pb-4 pr-1">
-                <!-- Sliding menu container -->
-                <div id="slideMenu" class="flex items-center space-x-3 overflow-hidden max-w-0 opacity-0 transition-all duration-300 ease-in-out">
-                    <button id="homeBtn" onclick="window.location.href='addDevice.html'" class="w-14 h-14 text-white font-bold text-xs rounded-full flex items-center justify-center shadow-lg cursor-pointer border-none shrink-0 transition-colors">Home</button>
-                    <button id="detailBtn" onclick="window.location.href='deviceDetail.html'" class="w-14 h-14 text-white font-bold text-xs rounded-full flex items-center justify-center shadow-lg cursor-pointer border-none shrink-0 transition-colors">Detail</button>
-                    <button id="controlBtn" onclick="window.location.href='controllerPage.html'" class="w-14 h-14 text-white font-bold text-xs rounded-full flex items-center justify-center shadow-lg cursor-pointer border-none shrink-0 transition-colors">Control</button>
-                </div>
-            
-                <!-- The Menu Button -->
-                <button id="menuButton" class="w-14 h-14 bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs rounded-full flex items-center justify-center shadow-lg transition-all duration-300 shrink-0 z-10">
-                    Menu
-                </button>
-            </div>
-            
-        </div>
-
+<body>
+    <div class="header-container">
+        <img src="/ico/mainOrange.png" alt="Orange Icon" class="header-icon">
+        <div class="orange-bar"></div>
+        <span class="title">Solar MD 001</span>
     </div>
 
-    <script>
+    <div class="info-row">
+        <span class="date-label">Date: 22/09/2026</span>
+        <span class="status-connecting">Connecting</span>
+    </div>
+
+    <div class="video-card">
+        <div class="spinner"></div>
+        <span class="video-text">Connecting</span>
+    </div>
+    
+    <div class="cam-header">
+        <div class="cam-title-area">
+            <span class="cam-icon">📷</span>
+            <span class="cam-name">Front Cam</span>
+        </div>
+        <span class="switch-cam">Switch Cam</span>
+    </div>
+    
+    <div class="orange-progress-bar"></div>
+    
+    <div class="control-section">
+        <div class="section-title">Control</div>
         
-        function switchCamera() {
-            console.log("Switching camera view...");
-        }
-    </script>
-    <script src="../JS/menu.js"> </script>
+        <div class="dpad-row">
+            <button class="control-btn">←</button>
+            <button class="control-btn">↑</button>
+            <button class="control-btn">↓</button>
+            <button class="control-btn">→</button>
+        </div>
+
+        <div class="action-row">
+            <button class="control-btn power-btn">⏻</button>
+            <button class="control-btn wide-btn">Start | Break</button>
+        </div>
+    </div>
+
+    <button id="menuButton" class="menu-fab">
+        Menu
+    </button>
 </body>
 </html>
